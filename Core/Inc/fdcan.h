@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    usart.h
+  * @file    fdcan.h
   * @brief   This file contains all the function prototypes for
-  *          the usart.c file
+  *          the fdcan.c file
   ******************************************************************************
   * @attention
   *
@@ -18,8 +18,8 @@
   */
 /* USER CODE END Header */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USART_H__
-#define __USART_H__
+#ifndef __FDCAN_H__
+#define __FDCAN_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -29,42 +29,33 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "tim.h"
 /* USER CODE END Includes */
 
-extern UART_HandleTypeDef huart4;
+extern FDCAN_HandleTypeDef hfdcan1;
 
-extern UART_HandleTypeDef huart7;
-
-extern UART_HandleTypeDef huart8;
-
-extern UART_HandleTypeDef huart1;
-
-extern UART_HandleTypeDef huart2;
-
-extern UART_HandleTypeDef huart3;
-
-extern UART_HandleTypeDef huart6;
+extern FDCAN_HandleTypeDef hfdcan2;
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
-void MX_UART4_Init(void);
-void MX_UART7_Init(void);
-void MX_UART8_Init(void);
-void MX_USART1_UART_Init(void);
-void MX_USART2_UART_Init(void);
-void MX_USART3_UART_Init(void);
-void MX_USART6_UART_Init(void);
+void MX_FDCAN1_Init(void);
+void MX_FDCAN2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+// CAN接收必需函数声明
+void CAN_Config_Filter(void);
+void CAN_Start_Receive(void);
+HAL_StatusTypeDef CAN_Get_Received_Message(uint32_t* id, uint8_t* data, uint8_t* length);
+void CAN_Receive_tackle(uint16_t header,uint8_t* data, uint8_t length);
+// CAN发送函数声明（仅用于测试需要时回应）
+void CAN_Send_Message(uint32_t id, uint8_t* data, uint8_t length);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __USART_H__ */
+#endif /* __FDCAN_H__ */
 
